@@ -1,0 +1,36 @@
+/* Cabeçalho */
+.header-wrapper {
+  height: 50px;
+  background-color: #efefef;
+}
+
+.header-wrapper .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-wrapper .container div {
+  margin-top: 10px;
+}
+
+.header-wrapper .container div label {
+  margin-right: 10px;
+}
+
+/* Principal */
+.main {
+  margin-top: 20px;
+}
+
+/* responsividade */
+@media (max-width: 780px) {
+  .header-wrapper {
+    height: 100px;
+  }
+
+  .header-wrapper .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
