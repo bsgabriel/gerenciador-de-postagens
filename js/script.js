@@ -7,8 +7,6 @@ let pgAtual = 0;
 
 window.addEventListener("load", function () {
   buscarPostagens();
-  exibirPosts();
-  console.log(arrPostagens);
 });
 
 picker.addEventListener("change", function (e) {
@@ -60,6 +58,7 @@ function buscarPostagens() {
       Array.from(retorno).forEach((postagem) => {
         arrPostagens.push(postagem);
       });
+      exibirPosts();
     })
     .catch((erro) => {
       console.log(Error(erro));
