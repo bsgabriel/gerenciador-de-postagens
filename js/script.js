@@ -2,10 +2,15 @@ const table = document.getElementById("tabelaPostagens");
 const picker = document.getElementById("qtdRegistros");
 const btnBuscar = document.getElementById("btnBuscar");
 const fldBusca = document.getElementById("fldBusca");
+const pnlNavegacao = document.getElementById("pnlNavegacao");
+const btnAvancar = document.getElementById("btnAvancar");
+const btnVoltar = document.getElementById("btnVoltar");
 const arrPostagens = [];
 let pgAtual = 0;
 
 window.addEventListener("load", function () {
+  picker.value = 50;
+  fldBusca.value = "";
   buscarPostagens();
 });
 
@@ -14,21 +19,62 @@ picker.addEventListener("change", function (e) {
 });
 
 btnBuscar.addEventListener("click", function () {
-  buscarPostagensPorTitulo(fldBusca.value);
+  buscarPostagensTitulo(fldBusca.value);
 });
+
+btnAvancar.addEventListener("click", function () {
+  avancarLista();
+});
+
+btnVoltar.addEventListener("click", function () {
+  voltarLista();
+});
+
+function tratarExibicaoNavegacao() {
+  pnlNavegacao.classList.remove("ocultar");
+  if (arrPostagens.length <= picker.value) {
+    pnlNavegacao.classList.add("ocultar");
+    return;
+  }
+}
+
+function avancarLista() {
+  if ((pgAtual + 1) * picker.value > arrPostagens.length - 1) {
+    return;
+  }
+
+  pgAtual++;
+  exibirPosts();
+}
+
+function voltarLista() {
+  if (pgAtual == 0) {
+    return;
+  }
+
+  pgAtual--;
+  exibirPosts();
+}
+
+function getTotalPaginas() {
+  return Math.ceil(arrPostagens.length / picker.value);
+}
 
 function exibirPosts() {
   limparTabela();
+  tratarExibicaoNavegacao();
   const qtd = picker.value;
-  for (let i = 0; i < qtd; i++) {
-    if (i == arrPostagens.length) {
-      break;
-    }
+  const min = pgAtual * qtd;
+  const max = parseInt(pgAtual) * parseInt(qtd) + parseInt(qtd);
+  for (let i = min; i < max && i < arrPostagens.length; i++) {
     carregarPostagem(arrPostagens[i]);
   }
 }
 
-function buscarPostagensPorTitulo(titulo) {
+function buscarPostagensTitulo(titulo) {
+  if(titulo == null)
+    titulo = "";
+
   titulo = titulo.trim();
   let url = "https://localhost:4567/postagem";
 
@@ -36,7 +82,8 @@ function buscarPostagensPorTitulo(titulo) {
     url = url.concat("?title=").concat(titulo);
   }
 
-  limparArray();
+  limparBusca();
+
   fetch(url)
     .then((response) => response.json())
     .then((retorno) => {
@@ -51,7 +98,8 @@ function buscarPostagensPorTitulo(titulo) {
 }
 
 function buscarPostagens() {
-  limparArray();
+  limparBusca();
+
   fetch("https://localhost:4567/postagem")
     .then((response) => response.json())
     .then((retorno) => {
@@ -65,8 +113,9 @@ function buscarPostagens() {
     });
 }
 
-function limparArray() {
+function limparBusca() {
   arrPostagens.length = 0;
+  pgAtual = 0;
 }
 
 function limparTabela() {

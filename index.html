@@ -19,9 +19,6 @@
         <div class="picker-div">
           <label for="qtdRegistros">Quantidade de registros por página: </label>
           <select class="selectpicker" name="qtdRegistros" id="qtdRegistros">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
@@ -51,6 +48,20 @@
             </thead>
             <tbody></tbody>
           </table>
+          <nav aria-label="Navegação" id="pnlNavegacao">
+            <ul class="pagination justify-content-end">
+              <li class="page-item">
+                <button class="page-link" href="#" id="btnVoltar">
+                  Voltar
+                </button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" href="#" id="btnAvancar">
+                  Avançar
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </section>
