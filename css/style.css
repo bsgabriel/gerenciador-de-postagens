@@ -27,6 +27,43 @@
   display: none;
 }
 
+table .content:hover {
+  background-color: #4c7dad;
+
+  color: white;
+}
+
+table .content:active {
+  background-color: #3877b5;
+  color: white;
+}
+
+/* popup */
+.modal {
+  padding: 50px;
+}
+
+.modal-body-wrapper {
+  display: flex;
+  max-width: 800px;
+  flex-direction: column;
+}
+
+.modal-body-wrapper label {
+  display: block;
+  color: #000;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.modal-body-wrapper input,
+.modal-body-wrapper textarea {
+  width: 100%;
+  padding: 0.7rem 0.5rem;
+  box-sizing: border-box;
+  border: 1px solid #010101;
+  border-radius: 0px;
+}
+
 /* responsividade */
 @media (max-width: 780px) {
   .header-wrapper {

@@ -51,25 +51,36 @@
           <nav aria-label="Navegação" id="pnlNavegacao">
             <ul class="pagination justify-content-end">
               <li class="page-item">
-                <button class="page-link" href="#" id="btnVoltar">
-                  Voltar
-                </button>
+                <button class="page-link" href="#" id="btnVoltar">Voltar</button>
               </li>
               <li class="page-item">
-                <button class="page-link" href="#" id="btnAvancar">
-                  Avançar
-                </button>
+                <button class="page-link" href="#" id="btnAvancar">Avançar</button>
               </li>
             </ul>
           </nav>
         </div>
       </div>
     </section>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
+    <div id="janelaModal" class="modal fade">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-body modal-body-wrapper">
+            <label for="titulo">Título:</label>
+            <input type="text" for="titulo" id="mdlInputTitulo" />
+            <label for="mensagem">Mensagem:</label>
+            <textarea type="text" for="mensagem" id="mdlInputMensagem" ></textarea>
+            <label for="tags">Tags (separadas por vírgula):</label>
+            <input type="text" for="tags" id="mdlInputTags" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Deletar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

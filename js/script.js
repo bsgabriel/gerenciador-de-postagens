@@ -72,8 +72,7 @@ function exibirPosts() {
 }
 
 function buscarPostagensTitulo(titulo) {
-  if(titulo == null)
-    titulo = "";
+  if (titulo == null) titulo = "";
 
   titulo = titulo.trim();
   let url = "https://localhost:4567/postagem";
@@ -150,18 +149,4 @@ function carregarPostagem(postagem) {
 
 function isEmptyOrSpaces(str) {
   return str === null || str.match(/^ *$/) !== null;
-}
-
-/* funções de teste */
-function exibirTodosPosts() {
-  fetch("https://localhost:4567/postagem")
-    .then((response) => response.json())
-    .then((retorno) => {
-      Array.from(retorno).forEach((postagem) => {
-        carregarPostagem(postagem);
-      });
-    })
-    .catch((erro) => {
-      console.log(Error(erro));
-    });
 }
