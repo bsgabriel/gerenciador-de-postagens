@@ -5,8 +5,10 @@ const fldBusca = document.getElementById("fldBusca");
 const pnlNavegacao = document.getElementById("pnlNavegacao");
 const btnAvancar = document.getElementById("btnAvancar");
 const btnVoltar = document.getElementById("btnVoltar");
+const btnMdlDeletar = document.getElementById("btnMdlDeletar");
 const arrPostagens = [];
 let pgAtual = 0;
+let currentPostId = null;
 
 window.addEventListener("load", function () {
   picker.value = 50;
@@ -28,6 +30,29 @@ btnAvancar.addEventListener("click", function () {
 
 btnVoltar.addEventListener("click", function () {
   voltarLista();
+});
+
+btnMdlDeletar.addEventListener("click", function () {
+  if (currentPostId == null) {
+    return;
+  }
+
+  if (!confirm("Deseja excluir a postagem?")) {
+    return;
+  }
+
+  fetch("https://localhost:4567/postagem/" + currentPostId, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then(() => {
+      picker.value = 50;
+      fldBusca.value = "";
+      buscarPostagens();
+    })
+    .catch((erro) => {
+      console.log(Error(erro));
+    });
 });
 
 function tratarExibicaoNavegacao() {
@@ -69,6 +94,7 @@ function exibirPosts() {
   for (let i = min; i < max && i < arrPostagens.length; i++) {
     carregarPostagem(arrPostagens[i]);
   }
+  addRowHandlers();
 }
 
 function buscarPostagensTitulo(titulo) {
@@ -149,4 +175,25 @@ function carregarPostagem(postagem) {
 
 function isEmptyOrSpaces(str) {
   return str === null || str.match(/^ *$/) !== null;
+}
+
+function addRowHandlers() {
+  Array.from(table.rows).forEach((row) => {
+    row.onclick = (function () {
+      return function () {
+        clearPopUp();
+        document.getElementById("mdlInputTitulo").value = this.cells[1].innerHTML;
+        document.getElementById("mdlInputTags").value = this.cells[2].innerHTML;
+        document.getElementById("mdlInputMensagem").value = this.cells[3].innerHTML;
+        currentPostId = this.cells[0].innerHTML;
+      };
+    })(row);
+  });
+}
+
+function clearPopUp() {
+  document.getElementById("mdlInputTitulo").value = "";
+  document.getElementById("mdlInputTags").value = "";
+  document.getElementById("mdlInputMensagem").value = "";
+  currentPostId = null;
 }
