@@ -6,6 +6,8 @@ const pnlNavegacao = document.getElementById("pnlNavegacao");
 const btnAvancar = document.getElementById("btnAvancar");
 const btnVoltar = document.getElementById("btnVoltar");
 const btnMdlDeletar = document.getElementById("btnMdlDeletar");
+const btnMdlSalvar = document.getElementById("btnMdlSalvar");
+
 const arrPostagens = [];
 let pgAtual = 0;
 let currentPostId = null;
@@ -53,6 +55,13 @@ btnMdlDeletar.addEventListener("click", function () {
     .catch((erro) => {
       console.log(Error(erro));
     });
+});
+
+btnMdlSalvar.addEventListener("click", function () {
+  if (currentPostId != null) {
+    atualizarPostagem();
+    return;
+  }
 });
 
 function tratarExibicaoNavegacao() {
@@ -171,6 +180,20 @@ function carregarPostagem(postagem) {
 
   colId.classList.add("numero");
   colVersao.classList.add("numero");
+}
+
+function atualizarPostagem() {
+  const url = 'https://localhost:4567/postagem/' + currentPostId;
+  fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify({
+      id: currentPostId,
+      title: document.getElementById("mdlInputTitulo").value,
+      content: document.getElementById("mdlInputMensagem").value,
+      categories: document.getElementById("mdlInputTags").value.split(',')
+    }),
+    headers: { "Content-type": "application/json; charset=UTF-8" }
+  });
 }
 
 function isEmptyOrSpaces(str) {
