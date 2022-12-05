@@ -183,15 +183,17 @@ function carregarPostagem(postagem) {
 }
 
 function atualizarPostagem() {
-  fetch('https://jsonplaceholder.typicode.com/todos/5', {
+  const url = 'https://localhost:4567/postagem/' + currentPostId;
+  fetch(url, {
     method: 'PUT',
     body: JSON.stringify({
       id: currentPostId,
       title: document.getElementById("mdlInputTitulo").value,
-      content: document.getElementById("mdlInputMensagem").value
+      content: document.getElementById("mdlInputMensagem").value,
+      categories: document.getElementById("mdlInputTags").value.split(',')
     }),
     headers: { "Content-type": "application/json; charset=UTF-8" }
-  }).then(response => response.json()).then(json => console.log(json))
+  });
 }
 
 function isEmptyOrSpaces(str) {
