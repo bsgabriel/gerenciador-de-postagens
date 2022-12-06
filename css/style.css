@@ -19,10 +19,6 @@
 }
 
 /* Principal */
-.main {
-  margin-top: 20px;
-}
-
 .ocultar {
   display: none;
 }
@@ -38,11 +34,9 @@ table .content:active {
   color: white;
 }
 
-.options {
-  border-top: solid 1px #eeeeee;
-  border-bottom: solid 1px #eeeeee; 
+.nova-postagem {
   display: flex;
-  justify-content: space-between;
+  padding: 10px 0;
 }
 
 /* popup */
