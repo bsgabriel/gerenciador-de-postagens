@@ -39,6 +39,27 @@ table .content:active {
   padding: 10px 0;
 }
 
+.footer {
+  background: #efefef;
+  padding: 10px;
+  bottom: 0px;
+  position: absolute;
+  left: 0px;
+  width: 100%;
+}
+
+.footer div {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer p {
+  font-size: 1.125em;
+  line-height: .5em;
+  color: blakc;
+  text-align: center;
+}
+
 /* popup */
 .modal {
   padding: 50px;
