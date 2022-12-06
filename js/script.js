@@ -7,15 +7,13 @@ const btnAvancar = document.getElementById("btnAvancar");
 const btnVoltar = document.getElementById("btnVoltar");
 const btnMdlDeletar = document.getElementById("btnMdlDeletar");
 const btnMdlSalvar = document.getElementById("btnMdlSalvar");
-
+const btnNovaPostagem = document.getElementById("btnNovaPostagem");
 const arrPostagens = [];
 let pgAtual = 0;
 let currentPostId = null;
 
 window.addEventListener("load", function () {
-  picker.value = 50;
-  fldBusca.value = "";
-  buscarPostagens();
+  init();
 });
 
 picker.addEventListener("change", function (e) {
@@ -48,9 +46,7 @@ btnMdlDeletar.addEventListener("click", function () {
   })
     .then((response) => response.json())
     .then(() => {
-      picker.value = 50;
-      fldBusca.value = "";
-      buscarPostagens();
+      init();
     })
     .catch((erro) => {
       console.log(Error(erro));
@@ -58,10 +54,25 @@ btnMdlDeletar.addEventListener("click", function () {
 });
 
 btnMdlSalvar.addEventListener("click", function () {
-  if (currentPostId != null) {
-    atualizarPostagem();
+  if (isEmptyOrSpaces(document.getElementById("mdlInputTitulo").value)) {
+    alert("Informe o título.");
     return;
   }
+
+  if (isEmptyOrSpaces(document.getElementById("mdlInputMensagem").value)) {
+    alert("Informe a mensagem.");
+    return;
+  }
+
+  if (currentPostId != null) {
+    atualizarPostagem();
+  } else {
+    inserirPostagem();
+  }
+});
+
+btnNovaPostagem.addEventListener("click", function () {
+  clearPopUp();
 });
 
 function tratarExibicaoNavegacao() {
@@ -183,17 +194,29 @@ function carregarPostagem(postagem) {
 }
 
 function atualizarPostagem() {
-  const url = 'https://localhost:4567/postagem/' + currentPostId;
+  const url = "https://localhost:4567/postagem/" + currentPostId;
   fetch(url, {
-    method: 'PUT',
+    method: "PUT",
     body: JSON.stringify({
       id: currentPostId,
       title: document.getElementById("mdlInputTitulo").value,
       content: document.getElementById("mdlInputMensagem").value,
-      categories: document.getElementById("mdlInputTags").value.split(',')
+      categories: document.getElementById("mdlInputTags").value.split(","),
     }),
-    headers: { "Content-type": "application/json; charset=UTF-8" }
-  });
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  }).then(() => init());
+}
+
+function inserirPostagem() {
+  fetch("https://localhost:4567/postagem", {
+    method: "POST",
+    body: JSON.stringify({
+      title: document.getElementById("mdlInputTitulo").value,
+      content: document.getElementById("mdlInputMensagem").value,
+      categories: document.getElementById("mdlInputTags").value.split(","),
+    }),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  }).then(() => init());
 }
 
 function isEmptyOrSpaces(str) {
@@ -219,4 +242,10 @@ function clearPopUp() {
   document.getElementById("mdlInputTags").value = "";
   document.getElementById("mdlInputMensagem").value = "";
   currentPostId = null;
+}
+
+function init() {
+  picker.value = 50;
+  fldBusca.value = "";
+  buscarPostagens();
 }

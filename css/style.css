@@ -38,6 +38,13 @@ table .content:active {
   color: white;
 }
 
+.options {
+  border-top: solid 1px #eeeeee;
+  border-bottom: solid 1px #eeeeee; 
+  display: flex;
+  justify-content: space-between;
+}
+
 /* popup */
 .modal {
   padding: 50px;
